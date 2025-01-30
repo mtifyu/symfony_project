@@ -17,33 +17,43 @@ class UserController extends AbstractController
         $this->entityManager = $entityManager;
     }
 
-    /**
-     * @Route("/admin/grant/{id}", name="admin_grant")
-     */
-    public function grantAdmin(User $user): Response
+    #[Route('/admin/grant/{id}', name: 'admin_grant', methods: ['GET', 'POST'])]
+    public function grantAdmin(int $id): Response
     {
-        // Проверка, что текущий пользователь имеет права супер админа
+        $user = $this->entityManager->getRepository(User::class)->find($id);
+        if (!$user) {
+            throw $this->createNotFoundException('User not found');
+        }
+
         if (!$this->isGranted('ROLE_SUPER_ADMIN')) {
             throw $this->createAccessDeniedException('Only super admins can grant admin rights.');
         }
 
-        $user->setRoles(['ROLE_ADMIN']);
-        $this->entityManager->flush();
+        if (!in_array('ROLE_ADMIN', $user->getRoles(), true)) {
+            $user->setRoles([...$user->getRoles(), 'ROLE_ADMIN']);
+            $this->entityManager->persist($user);
+            $this->entityManager->flush();
+        }
+
         return new Response('Admin rights granted');
     }
 
-    /**
-     * @Route("/admin/revoke/{id}", name="admin_revoke")
-     */
-    public function revokeAdmin(User $user): Response
+    #[Route('/admin/revoke/{id}', name: 'admin_revoke', methods: ['GET', 'POST'])]
+    public function revokeAdmin(int $id): Response
     {
-        // Проверка, что текущий пользователь имеет права супер админа
+        $user = $this->entityManager->getRepository(User::class)->find($id);
+        if (!$user) {
+            throw $this->createNotFoundException('User not found');
+        }
+
         if (!$this->isGranted('ROLE_SUPER_ADMIN')) {
             throw $this->createAccessDeniedException('Only super admins can revoke admin rights.');
         }
 
-        $user->setRoles([]);
+        $user->setRoles(array_values(array_diff($user->getRoles(), ['ROLE_ADMIN'])));
+        $this->entityManager->persist($user);
         $this->entityManager->flush();
+
         return new Response('Admin rights revoked');
     }
 }
