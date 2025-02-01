@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Update Application{% endblock %}
+
+{% block body %}
+    <h1>Edit Application</h1>
+
+    {# Скрытое поле для PUT-метода #}
+    <form method="POST" action="{{ path('application_update', {'application_id': application.id}) }}">
+        {# Скрытое поле для PUT-метода #}
+        <input type="hidden" name="_method" value="PUT">
+
+        {{ form_start(form) }}
+        {{ form_row(form) }}
+        <button type="submit">Update Application</button>
+        {{ form_end(form) }}
+    </form>
+
+    <a href="{{ path('app_profile') }}" class="btn btn-secondary">Cancel</a>
+
+{% endblock %}

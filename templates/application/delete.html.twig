@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Delete Application{% endblock %}
+
+{% block body %}
+    <h1>Are you sure you want to delete this application?</h1>
+
+    <form action="{{ path('application_delete', {'id': application.id}) }}" method="POST">
+        {# Скрытое поле для использования DELETE метода #}
+        <input type="hidden" name="_method" value="DELETE">
+        <button type="submit">Delete</button>
+    </form>
+
+    <a href="{{ path('app_profile') }}">Cancel</a>
+{% endblock %}

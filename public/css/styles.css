@@ -140,6 +140,7 @@ form label {
 
 form input[type="text"],
 form input[type="number"],
+form input[type="password"],
 form select,
 form textarea {
   width: 100%;
@@ -154,6 +155,7 @@ form textarea {
 
 form input[type="text"]:focus,
 form input[type="number"]:focus,
+form input[type="password"]:focus,
 form select:focus,
 form textarea:focus {
   border-color: #bb86fc; /* Фиолетовый при фокусе */

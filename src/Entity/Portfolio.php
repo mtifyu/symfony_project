@@ -1,4 +1,6 @@
 <?php
+// src/Entity/Portfolio.php
+// src/Entity/Portfolio.php
 
 namespace App\Entity;
 
@@ -15,7 +17,7 @@ class Portfolio
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'portfolios')]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'portfolios')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 

@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Applications for Stock{% endblock %}
+
+{% block body %}
+    <h1>Applications for Stock: {{ stock.name }}</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Action</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th>User</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for application in applications %}
+            <tr>
+                <td>{{ application.action }}</td>
+                <td>{{ application.quantity }}</td>
+                <td>{{ application.price }}</td>
+                <td>{{ application.status }}</td>
+                <td>{{ application.user.id }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">No applications found for this stock.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_create_application') }}" class="btn btn-primary">Create New Application</a>
+{% endblock %}

@@ -1,5 +1,21 @@
 controllers:
-    resource:
-        path: ../src/Controller/
-        namespace: App\Controller
-    type: attribute
+  resource: "../src/Controller/"
+  type: attribute
+
+# Роут для обновления заявки (метод PUT)
+application_update:
+  path: /application/update/{application_id}
+  controller: App\Controller\ApplicationController::update
+  methods: [GET, PUT]
+
+# Роут для удаления заявки (метод DELETE)
+application_delete:
+  path: /application/delete/{id}
+  controller: App\Controller\ApplicationController::delete
+  methods: [GET, POST]
+
+# Роут для создания заявки (метод POST)
+application_create:
+  path: /application/create
+  controller: App\Controller\ApplicationController::create
+  methods: [POST]

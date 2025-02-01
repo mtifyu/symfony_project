@@ -1,11 +1,12 @@
 <?php
+// src/Entity/Application.php
+// src/Entity/Application.php
 
 namespace App\Entity;
 
-use App\Repository\ApplicationRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: ApplicationRepository::class)]
+#[ORM\Entity(repositoryClass:"App\Repository\ApplicationRepository")]
 class Application
 {
     #[ORM\Id]
@@ -32,6 +33,12 @@ class Application
     #[ORM\ManyToOne(inversedBy: 'applications')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Stock $stock = null;
+
+    // Добавляем Portfolio
+    #[ORM\ManyToOne(targetEntity:"App\Entity\Portfolio")]
+    #[ORM\JoinColumn(name:"portfolio_id", referencedColumnName:"id")]
+    private ?Portfolio $portfolio = null;
+    // Геттеры и сеттеры
 
     public function getId(): ?int
     {
@@ -106,6 +113,20 @@ class Application
     public function setStock(?Stock $stock): static
     {
         $this->stock = $stock;
+
+        return $this;
+    }
+
+    // Геттер и сеттер для portfolio
+
+    public function getPortfolio(): ?Portfolio
+    {
+        return $this->portfolio;
+    }
+
+    public function setPortfolio(?Portfolio $portfolio): static
+    {
+        $this->portfolio = $portfolio;
 
         return $this;
     }
