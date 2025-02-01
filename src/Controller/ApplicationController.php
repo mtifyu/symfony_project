@@ -57,7 +57,6 @@ class ApplicationController extends AbstractController
             // Если все валидно, сохраняем заявку в базе данных
             $application->setPortfolio($portfolio);
             $application->setStock($stock);
-            $application->setUser($this->getUser()); // Устанавливаем пользователя
 
             $em->persist($application);
             $em->flush();
@@ -72,7 +71,7 @@ class ApplicationController extends AbstractController
     }
 
     // Обновление заявки
-    #[Route('/application/update/{application_id}', name: 'application_update', methods: ['PUT'])]
+    #[Route('/application/update/{application_id}', name: 'application_update', methods: ['GET', 'PUT'])]
     public function update(Request $request, int $application_id, EntityManagerInterface $em): Response
     {
         $application = $em->getRepository(Application::class)->find($application_id);
@@ -97,7 +96,6 @@ class ApplicationController extends AbstractController
             'application' => $application,  // Передаем объект 'application'
         ]);
     }
-
 
     // Удаление заявки
     #[Route('/application/delete/{id}', name: 'application_delete', methods: ['GET', 'POST'])]

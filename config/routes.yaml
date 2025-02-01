@@ -6,7 +6,7 @@ controllers:
 application_update:
   path: /application/update/{application_id}
   controller: App\Controller\ApplicationController::update
-  methods: [GET, PUT]
+  methods: [GET, POST, PUT]
 
 # Роут для удаления заявки (метод DELETE)
 application_delete:

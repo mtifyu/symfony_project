@@ -29,11 +29,6 @@ class ApplicationType extends AbstractType
             ])
             ->add('quantity', NumberType::class)
             ->add('price', NumberType::class)
-            ->add('status', TextType::class)
-            ->add('user', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'id',
-            ])
             ->add('stock', EntityType::class, [
                 'class' => Stock::class,
                 'choice_label' => 'id',
